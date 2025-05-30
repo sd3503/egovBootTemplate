@@ -8,6 +8,6 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="egovframework.servicename.web.user.dto.UserDTO" alias="UserDTO"/>
+<!--        <typeAlias type="egovframework.servicename.web.user.dto.UserDTO" alias="UserDTO"/>-->
     </typeAliases>
 </configuration>

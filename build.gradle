@@ -36,6 +36,8 @@ dependencies {
 
     // mysql
     implementation 'mysql:mysql-connector-java:8.0.31'
+    // postgresql
+    implementation 'org.postgresql:postgresql:42.5.4'
     // mybatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
     //JPA, 스프링 데이터 JPA 추가
