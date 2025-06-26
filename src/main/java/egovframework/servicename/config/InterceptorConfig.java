@@ -1,6 +1,6 @@
 package egovframework.servicename.config;
 
-import egovframework.servicename.interceptor.AllRequestInterceptor;
+import egovframework.servicename.utils.interceptor.AllRequestInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -1,4 +1,4 @@
-package egovframework.servicename.web.common.domain;
+package egovframework.servicename.utils.auditableEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @Getter
 @Setter
-public class AuditableEntity {
+public class CommonAuditableEntity {
 
     @Column(name = "created_by")
     protected Long createdBy;
@@ -25,6 +25,9 @@ public class AuditableEntity {
 
     @Column(name = "updated_at")
     protected LocalDateTime updatedAt;
+
+    @Column(name = "is_active")
+    private Boolean isActive = true;
 
     @PrePersist
     protected void onCreate() {

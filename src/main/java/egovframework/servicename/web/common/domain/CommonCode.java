@@ -1,5 +1,6 @@
 package egovframework.servicename.web.common.domain;
 
+import egovframework.servicename.utils.auditableEntity.CommonAuditableEntity;
 import egovframework.servicename.web.common.dto.CommonCodeDto;
 import lombok.*;
 
@@ -9,11 +10,10 @@ import javax.persistence.*;
 @Table(name = "common_code",
         uniqueConstraints = @UniqueConstraint(columnNames = {"group_id", "code"}))
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CommonCode extends AuditableEntity {
+public class CommonCode extends CommonAuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,8 +27,6 @@ public class CommonCode extends AuditableEntity {
     @Column(name = "sort_order")
     private Integer sortOrder = 0;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", nullable = false)
@@ -36,11 +34,13 @@ public class CommonCode extends AuditableEntity {
 
     // ✅ 정적 팩토리 메서드
     public static CommonCode fromDto(CommonCodeDto dto, CommonCodeGroup group, Long createdBy) {
-        CommonCode code = new CommonCode();
-        code.setGroup(group);
-        code.setCode(dto.getCode().toUpperCase());
-        code.setCodeName(dto.getCodeName());
-        code.setSortOrder(dto.getSortOrder() != null ? dto.getSortOrder() : 0);
+
+        CommonCode code = CommonCode.builder()
+                .group(group)
+                .code(dto.getCode().toUpperCase())
+                .codeName(dto.getCodeName())
+                .sortOrder(dto.getSortOrder() != null ? dto.getSortOrder() : 0)
+                .build();
         code.setIsActive(dto.getIsActive() != null ? dto.getIsActive() : true);
         code.setCreatedBy(createdBy);
         return code;
@@ -50,7 +50,12 @@ public class CommonCode extends AuditableEntity {
     public void updateFromDto(CommonCodeDto dto, Long updatedBy) {
         this.codeName = dto.getCodeName();
         this.sortOrder = dto.getSortOrder() != null ? dto.getSortOrder() : this.sortOrder;
-        this.isActive = dto.getIsActive() != null ? dto.getIsActive() : this.isActive;
         this.updatedBy = updatedBy;
+        setIsActive(dto.getIsActive() != null ? dto.getIsActive() : getIsActive());
+    }
+
+    public void updateDelete(Long updatedBy) {
+        this.updatedBy = updatedBy;
+        setIsActive(false);
     }
 }

@@ -1,4 +1,4 @@
-package egovframework.servicename.interceptor;
+package egovframework.servicename.utils.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
